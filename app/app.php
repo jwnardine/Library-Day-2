@@ -42,6 +42,11 @@
         return $app['twig']->render('author.html.twig', array('author' => $author, 'books' => $author->getBooks()));
     });
 
+    $app->get("/books/{id}/edit", function($id) use($app){
+        $book = Book::find($id);
+        return $app['twig']->render('book_edit.html.twig', array('book' => $book));
+    });
+
     /*Delete a single author*/
     $app->delete("/delete_author/{id}", function($id) use ($app) {
         $author = Author::find($id);
