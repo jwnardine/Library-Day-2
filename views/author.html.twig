@@ -15,7 +15,7 @@
             <input id="author_id" name="author_id" type="hidden" value="{{ author.getId }}">
             <label for="book_id">Select a book</label>
             <select id='book_id' name='book_id' type='text'>
-              {% for book in all_books %}
+              {% for book in books %}
                 <option value="{{ book.getId }}"> {{ book.getTitle }} </option>
               {% endfor %}
             </select>
@@ -27,13 +27,13 @@
             <ul>
                 {% for book in books %}
                     <li>{{ book.getTitle }}</li>
-                    <!-- <li>{{ book.getDue }}</li> -->
                 {% endfor %}
             </ul>
         {% endif %}
 
-        <form action='/delete_books' method='post'>
-        <button class='btn-danger' type='submit'>Delete All Books</button>
+        <form action="/delete_author/{{ author.getId }}" method='post'>
+        <input name="_method" type="hidden" value="delete">
+            <button class='btn-danger' type='submit'>Delete This Author!</button>
         </form>
 
         <p><a href="/authors/{{ author.getId }}/edit">Edit this author</a></p>
