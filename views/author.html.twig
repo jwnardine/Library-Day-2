@@ -15,7 +15,7 @@
             <input id="author_id" name="author_id" type="hidden" value="{{ author.getId }}">
             <label for="book_id">Select a book</label>
             <select id='book_id' name='book_id' type='text'>
-              {% for book in books %}
+              {% for book in all_books %}
                 <option value="{{ book.getId }}"> {{ book.getTitle }} </option>
               {% endfor %}
             </select>

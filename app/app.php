@@ -34,17 +34,25 @@
         $author = Author::find($id);
         return $app['twig']->render('author_edit.html.twig', array('author' => $author));
     });
-    $app->patch("authors/{id}", function($id) use ($app) {
+
+    $app->patch("authors_update/{id}", function($id) use ($app) {
         $first_name = $_POST['first_name'];
         $last_name = $_POST['last_name'];
         $author = Author::find($id);
         $author->update($first_name, $last_name);
-        return $app['twig']->render('author.html.twig', array('author' => $author, 'books' => $author->getBooks()));
+        return $app['twig']->render('author.html.twig', array('author' => $author, 'books' => $author->getBooks(), 'all_books' => Book::getAll()));
     });
 
     $app->get("/books/{id}/edit", function($id) use($app){
         $book = Book::find($id);
         return $app['twig']->render('book_edit.html.twig', array('book' => $book));
+    });
+
+    $app->patch("books_update/{id}", function($id) use ($app) {
+        $title = $_POST['title'];
+        $book = Book::find($id);
+        $book->update($title);
+        return $app['twig']->render('book.html.twig', array('book' => $book, 'authors' => $book->getAuthors(), 'all_authors' => Author::getAll()));
     });
 
     /*Delete a single author*/

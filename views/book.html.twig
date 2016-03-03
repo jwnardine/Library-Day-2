@@ -18,7 +18,7 @@
                 <option value="{{ author.getId }}"> {{ author.getFirstName }} {{ author.getLastName }}</option>
               {% endfor %}
             </select>
-            <button type='submit'>Add author</button>
+            <button class="info" type='submit'>Add author</button>
         </form>
 
         {% if authors is not empty %}
@@ -26,7 +26,6 @@
             <ul>
                 {% for author in authors %}
                     <li>{{ author.getFirstName }} {{ author.getLastName }}</li>
-                    <!-- <li>{{ book.getDue }}</li> -->
                 {% endfor %}
             </ul>
         {% endif %}
