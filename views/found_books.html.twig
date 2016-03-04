@@ -1,0 +1,22 @@
+<html>
+<head>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='/styles.css'>
+    <title>Library</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Books:</h1>
+        {% if books is not empty %}
+          <p>Here is your books:</p>
+          <ul>
+            {% for book in books %}
+                <li>{{ book.getTitle }}</a></li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+        <h2><a href='/'>Home</a></h2>
+    </div>
+</body>
+</html>

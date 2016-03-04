@@ -118,6 +118,21 @@
             $this->assertEquals($test_book, $result);
         }
 
+        function testSearch()
+        {
+            //Arrange
+            $title = "How to Cook a Steak";
+            $title2 = "Jon";
+            $test_book = new Book($title);
+            $test_book->save();
+            $test_book2 = new Book($title2);
+            $test_book2->save();
+            //Act
+            $result = Book::search($test_book->getTitle());
+            //Assert
+            $this->assertEquals([$test_book], $result);
+        }
+
         function testUpdate()
         {
             //Arrange

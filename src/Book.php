@@ -73,6 +73,21 @@
             return $found_book;
         }
 
+        static function search($input)
+        {
+            $query = $GLOBALS['DB']->query("SELECT * FROM books WHERE title LIKE '%{$input}%';");
+            $all_books = $query->fetchAll(PDO::FETCH_ASSOC);
+
+            $found_books = array();
+            foreach($all_books as $book) {
+                $title = $book['title'];
+                $id = $book['id'];
+                $new_book = new Book($title, $id);
+                array_push($found_books, $new_book);
+                }
+            return $found_books;
+        }
+
         function addAuthor($author)
         {
             $GLOBALS['DB']->exec("INSERT INTO authors_books (author_id, book_id) VALUES ({$author->getId()}, {$this->getId()});");

@@ -13,12 +13,21 @@
     ));
     use Symfony\Component\HttpFoundation\Request;
     Request::enableHttpMethodParameterOverride();
+
     $app->get("/", function() use ($app) {
         return $app['twig']->render('index.html.twig', array('authors' => Author::getAll(), 'books' => Book::getAll()));
     });
 
     $app->get("/authors", function() use ($app) {
         return $app['twig']->render('authors.html.twig', array('authors' => Author::getAll()));
+    });
+
+    /*Find books by title*/
+    $app->post("/search", function() use ($app) {
+        $user_input = $_POST['title'];
+        $book = Book::search($user_input);
+        // var_dump($book);
+        return $app['twig']->render('found_books.html.twig', array('books' => $book));
     });
 
     $app->post("/authors", function() use ($app) {
@@ -85,7 +94,7 @@
         return $app['twig']->render('book_edit.html.twig', array('book' => $book));
     });
 
-    $app->patch("books_update/{id}", function($id) use ($app) {
+    $app->patch("/books_update/{id}", function($id) use ($app) {
         $title = $_POST['title'];
         $book = Book::find($id);
         $book->update($title);
@@ -109,6 +118,8 @@
       $book->addAuthor($author);
       return $app['twig']->render('book.html.twig', array('book' => $book, 'books' => Book::getAll(), 'authors' => $book->getAuthors(), 'all_authors' => Author::getAll()));
     });
+
+
 
     $app->get("/librarian", function() use ($app) {
         return $app['twig']->render('librarian.html.twig', array('authors' => Author::getAll(), 'books' => Book::getAll()));
